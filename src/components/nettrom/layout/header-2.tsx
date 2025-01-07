@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Mountain, Search, User, Mail } from "lucide-react";
+import { Search, User, Mail } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +13,7 @@ import { Input } from "@/components/shadcn/input";
 import { Button } from "@/components/shadcn/button";
 import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
+import { Constants } from "@/constants";
 
 export default function SlidingHeader() {
   const [isVisible, setIsVisible] = useState(true);
@@ -38,15 +39,19 @@ export default function SlidingHeader() {
 
   return (
     <header
-      className={`fixed left-0 right-0 top-0 z-[1000] border-b bg-background transition-transform duration-300 ease-in-out ${
+      className={`fixed left-0 right-0 top-0 z-[1000] border-b bg-background shadow-lg transition-transform duration-300 ease-in-out ${
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
       <div className="container mx-auto flex items-center justify-between px-4 py-2">
-        <div className="flex items-center">
-          <Mountain className="h-8 w-8 text-primary" />
-          <span className="ml-2 text-xl font-bold">Logo</span>
-        </div>
+        <Link href="/nettrom" className="flex items-center">
+          <img
+            itemProp="logo"
+            src={"/nettruyen/images/logo.png"}
+            className="h-10"
+            alt={`${Constants.APP_NAME} - Truyện tranh Online`}
+          />
+        </Link>
 
         <div className="mx-4 max-w-xl flex-1">
           <div className="relative">

@@ -158,7 +158,7 @@ export default function TopTitles({ groupId }: { groupId?: string }) {
   }, [favoriteMangaList]);
 
   return (
-    <div className="">
+    <div className="mb-10">
       <div className="">
         <div className="">
           <div className="mb-4 flex items-center justify-between gap-3">

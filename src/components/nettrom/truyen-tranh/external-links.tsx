@@ -1,4 +1,5 @@
 import { MangadexApi } from "@/api";
+import { TextLink } from "../common/link";
 
 export default function ExternalLinks({
   links,
@@ -92,14 +93,14 @@ export default function ExternalLinks({
         return (
           <>
             {idx !== 0 && ", "}
-            <a
+            <TextLink
               key={idx}
               href={i.url}
               target="_blank"
               className="text-web-title transition hover:text-web-titleLighter"
             >
               {i.name}
-            </a>
+            </TextLink>
           </>
         );
       })}

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useRef } from "react";
 import { useChapterContext } from "@/contexts/chapter";
 import { Select } from "../Select";
 import { twMerge } from "tailwind-merge";
@@ -14,6 +14,7 @@ import {
 import useScrollOffset from "@/hooks/useScrollOffset";
 import Link from "next/link";
 import { Constants } from "@/constants";
+import { useInViewport } from "react-in-viewport";
 
 export const ChapterControlBar: FC<{}> = (props) => {
   const {
@@ -30,30 +31,81 @@ export const ChapterControlBar: FC<{}> = (props) => {
   } = useChapterContext();
   const scrollDirection = useScrollDirection();
   const { isAtBottom, isAtTop } = useScrollOffset();
+  const staticBarRef = useRef(null);
+  const { inViewport: isStaticBarVisible } = useInViewport(
+    staticBarRef,
+    {},
+    { disconnectOnLeave: false },
+    {},
+  );
 
   return (
     <>
       <div
+        ref={staticBarRef}
+        className="mx-auto flex max-w-[600px] items-center justify-center gap-2 py-5"
+      >
+        <Button
+          disabled={!canPrev}
+          onClick={() => prev()}
+          icon={<FaArrowLeft />}
+          className="h-10 shrink-0 rounded-lg"
+        >
+          Chương trước
+        </Button>
+        <Select
+          classNames={{
+            trigger: "grow rounded-lg",
+            content: "max-h-[500px] w-[95vw] sm:w-full",
+          }}
+          value={chapterId || "Đang tải..."}
+          onValueChange={(value) => {
+            goTo(value);
+          }}
+          items={chapters.map((item) => {
+            return {
+              label:
+                item.volume !== "none"
+                  ? `Tập ${item.volume} Chương ${item.chapter}`
+                  : item.chapter !== "none"
+                    ? `Chương ${item.chapter}`
+                    : "Oneshot",
+              value: item.id,
+            };
+          })}
+        ></Select>
+        <Button
+          disabled={!canNext}
+          icon={<FaArrowRight />}
+          onClick={() => next()}
+          className="h-10 shrink-0 rounded-lg"
+        >
+          Chương sau
+        </Button>
+      </div>
+      <div
         className={twMerge(
-          `fixed bottom-0 left-0 z-10 mx-auto flex w-full translate-y-0 flex-nowrap items-center justify-center gap-x-1 transition-all duration-500 sm:p-2`,
+          `fixed bottom-0 left-0 z-10 mx-auto flex w-full translate-y-0 flex-nowrap items-center justify-center gap-x-1 transition-all duration-500`,
           scrollDirection === "down" && !isAtBottom && "translate-y-full",
+          isStaticBarVisible && "translate-y-full",
         )}
       >
         <div
           className={twMerge(
-            "flex w-full items-center gap-2 bg-neutral-900 p-2 shadow-2xl sm:max-w-[500px] sm:rounded-2xl sm:p-4",
+            "flex w-full items-center gap-2 bg-neutral-900 p-2 shadow-2xl sm:max-w-[500px] sm:rounded-t-xl",
           )}
         >
           <Button
             disabled={isAtTop}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             icon={<FaArrowUp />}
-            className="h-16 w-16 shrink-0 rounded-full text-[40px] [&_svg]:size-8"
+            variant={"ghost"}
+            className="h-10 w-10 shrink-0 rounded-full bg-transparent"
           ></Button>
           <Link href={Constants.Routes.nettrom.manga(manga?.id || "")}>
             <Button
               variant={"ghost"}
-              className="h-16 w-16 shrink-0 bg-transparent text-[40px] [&_svg]:size-8"
+              className="h-10 w-10 shrink-0 bg-transparent"
               icon={<FaList />}
             ></Button>
           </Link>
@@ -61,11 +113,11 @@ export const ChapterControlBar: FC<{}> = (props) => {
             disabled={!canPrev}
             onClick={() => prev()}
             icon={<FaArrowLeft />}
-            className="h-16 w-16 shrink-0 rounded-lg text-[40px] [&_svg]:size-8"
+            className="h-10 w-10 shrink-0 rounded-lg"
           ></Button>
           <Select
             classNames={{
-              trigger: "h-16 grow rounded-lg",
+              trigger: "grow rounded-lg",
               content: "max-h-[500px] w-[95vw] sm:w-full",
             }}
             value={chapterId || "Đang tải..."}
@@ -88,12 +140,12 @@ export const ChapterControlBar: FC<{}> = (props) => {
             disabled={!canNext}
             icon={<FaArrowRight />}
             onClick={() => next()}
-            className="h-16 w-16 shrink-0 rounded-lg text-[40px] [&_svg]:size-8"
+            className="h-10 w-10 shrink-0 rounded-lg"
           ></Button>
           <Button
             onClick={() => alert("Chức năng này đang được phát triển")}
             variant={"ghost"}
-            className="h-16 w-16 shrink-0 bg-transparent text-[40px] [&_svg]:size-8"
+            className="h-10 w-10 shrink-0 bg-transparent"
             icon={<FaEllipsisV />}
           ></Button>
         </div>

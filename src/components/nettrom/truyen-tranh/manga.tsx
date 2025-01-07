@@ -20,6 +20,7 @@ import { useRouter } from "nextjs-toploader/app";
 import FirstChapterButton from "./first-chapter-button";
 import ExternalLinks from "./external-links";
 import Markdown from "../Markdown";
+import { TextLink } from "../common/link";
 
 export default function Manga({ mangaId }: { mangaId: string }) {
   const { user } = useAuth();
@@ -69,7 +70,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
       error={error}
     >
       <ul
-        className="mb-2 inline-flex items-center gap-4"
+        className="mb-2 inline-flex items-center gap-3"
         itemType="http://schema.org/BreadcrumbList"
       >
         {[
@@ -121,11 +122,9 @@ export default function Manga({ mangaId }: { mangaId: string }) {
         </li> */}
       </ul>
       <article id="" className="dark:text-foreground">
-        <div className="mb-[16px]">
-          <h1 className="my-0 mb-4 text-[32px] font-semibold leading-tight">
-            {title}
-          </h1>
-          <p className="inline-flex w-full gap-8 text-muted-foreground">
+        <div className="mb-4">
+          <h1 className="mb-4 text-2xl font-semibold leading-tight">{title}</h1>
+          <p className="inline-flex w-full gap-4 text-muted-foreground">
             <span>
               <i className="fa fa-star mr-2"></i>
               <span className="block sm:inline">
@@ -154,8 +153,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                     ? Utils.Date.formatNowDistance(
                         new Date(manga?.attributes?.updatedAt),
                       )
-                    : ""}{" "}
-                  trước
+                    : ""}
                 </span>
               </span>
             </span>
@@ -166,7 +164,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
             <div className="">
               <div className="relative w-full">
                 <AspectRatio
-                  className="overflow-hidden rounded-lg shadow-lg"
+                  className="overflow-hidden rounded-lg shadow-xl"
                   ratio={Constants.Nettrom.MANGA_COVER_RATIO}
                 >
                   <img
@@ -178,7 +176,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
               </div>
             </div>
             <div>
-              <ul className="[&>li]:grid [&>li]:lg:grid-cols-[1fr_2fr]">
+              <ul className="flex flex-col gap-1 [&>li]:grid [&>li]:lg:grid-cols-[1fr_2fr]">
                 {altTitles.length > 0 && (
                   <li className="">
                     <p className="name mb-2 text-muted-foreground lg:mb-0">
@@ -220,13 +218,13 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                   <p className="pl-10 lg:pl-0">
                     {manga?.attributes.tags.map((tag, idx) => (
                       <>
-                        <Link
+                        <TextLink
                           key={tag.id}
                           href={`${Constants.Routes.nettrom.search}?includedTags=${tag.id}`}
                           className="text-web-title transition hover:text-web-titleLighter"
                         >
                           {tag.attributes.name.en}
-                        </Link>
+                        </TextLink>
                         {idx !== manga?.attributes.tags.length - 1 && (
                           <span
                             key={"divider_" + idx}
@@ -288,7 +286,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
           </div>
         </div>
         <div className="detail-content mb-10">
-          <h2 className="mb-4 flex items-center gap-4 text-[20px] font-medium text-web-title">
+          <h2 className="mb-4 flex items-center gap-4 text-xl font-medium text-web-title">
             <i className="fa fa-pen"></i>
             <span>Nội dung</span>
           </h2>
@@ -302,7 +300,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                 }
               />
             }
-            <p className="text-muted-foreground">
+            <p className="mt-5 text-muted-foreground">
               Truyện tranh{" "}
               <Link
                 href={url}

@@ -16,7 +16,6 @@ import useReadingHistory from "@/hooks/useReadingHistory";
 
 import { useMangadex } from "./mangadex";
 import { Utils } from "@/utils";
-import { Constants } from "@/constants";
 
 export const ChapterContext = createContext<{
   chapterId: string | null;
@@ -101,16 +100,16 @@ export const ChapterContextProvider = ({
     }
   }, [mangaId]);
 
-  useEffect(() => {
-    if (!chapter) return;
-    const newPath = Constants.Routes.nettrom.chapter(chapter.id);
-    document.title = `Đọc ${Utils.Mangadex.getChapterTitle(chapter)}`;
-    window.history.pushState(
-      { ...window.history.state, as: newPath, url: newPath },
-      "",
-      newPath,
-    );
-  }, [chapter]);
+  // useEffect(() => {
+  //   if (!chapter) return;
+  //   const newPath = Constants.Routes.nettrom.chapter(chapter.id);
+  //   document.title = `Đọc ${Utils.Mangadex.getChapterTitle(chapter)}`;
+  //   window.history.pushState(
+  //     { ...window.history.state, as: newPath, url: newPath },
+  //     "",
+  //     newPath,
+  //   );
+  // }, [chapter]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });

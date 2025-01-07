@@ -9,8 +9,7 @@ import { Suspense } from "react";
 import NextTopLoader from "nextjs-toploader";
 import { TextLink } from "@/components/nettrom/common/link";
 import SlidingHeader from "@/components/nettrom/layout/header-2";
-import { Alert } from "@/components/nettrom/Alert";
-import MainNav from "@/components/nettrom/layout/main-nav-2";
+import { TopMenu } from "@/components/nettrom/layout/top-menu";
 
 export const metadata: Metadata = {
   title: `${Constants.APP_NAME} - Truyện tranh chất lượng cao không quảng cáo`,
@@ -41,6 +40,7 @@ export default function NettromLayout({
   children: React.ReactNode;
 }) {
   const copyrightYear = new Date().getFullYear();
+
   return (
     <LayoutWrapper id="nettrom">
       <NextTopLoader
@@ -57,26 +57,11 @@ export default function NettromLayout({
         {/* <Header /> */}
         <SlidingHeader />
       </Suspense>
-      <nav
-        className="main-nav hidden-xs bg-muted pt-[40px] text-foreground"
-        id="mainNav"
+      <TopMenu />
+
+      <main
+        className={twMerge("bg-muted text-sm text-foreground", inter.className)}
       >
-        <div className="inner">
-          <div className="container">
-            <div className="py-4">
-              <Alert
-                title="TruyenDex chỉ xây dựng giao diện tiếng Việt, toàn bộ dữ liệu
-                thuộc về MangaDex."
-                classNames={{
-                  alert: "rounded-t-none mb-1 shadow-xl",
-                }}
-              />
-              <MainNav />
-            </div>
-          </div>
-        </div>
-      </nav>
-      <main className={twMerge("bg-muted text-foreground", inter.className)}>
         <div className="container">{children}</div>
       </main>
       <footer className="border-t bg-[#000]">

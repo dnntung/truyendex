@@ -68,31 +68,36 @@ export const MangaTile = (props: {
         </div>
         <figcaption>
           <ul className="flex flex-col gap-1">
-            {props.chapters.slice(0, 3).map((chapter) => (
-              <li
-                className="flex items-center justify-between gap-x-2 text-xs"
-                key={chapter.id}
-              >
-                <TextLink
-                  withoutIcon
-                  href={Constants.Routes.nettrom.chapter(chapter.id)}
-                  title={Utils.Mangadex.getChapterTitle(chapter)}
-                  className={twMerge(
-                    "text-xs",
-                    readedChaptersId === chapter.id
-                      ? "flex-grow truncate whitespace-nowrap text-web-titleDisabled transition hover:text-web-titleLighter"
-                      : "flex-grow truncate whitespace-nowrap text-web-title transition hover:text-web-titleLighter",
-                  )}
+            {props.chapters.slice(0, 3).map((chapter) => {
+              const isRead = readedChaptersId === chapter.id;
+              return (
+                <li
+                  className="flex items-center justify-between gap-x-2 text-xs"
+                  key={chapter.id}
                 >
-                  {Utils.Mangadex.getChapterTitle(chapter)}
-                </TextLink>
-                <span className="whitespace-nowrap text-muted-foreground">
-                  {Utils.Date.formatNowDistance(
-                    new Date(chapter.attributes.readableAt),
-                  )}
-                </span>
-              </li>
-            ))}
+                  <TextLink
+                    withoutIcon
+                    href={Constants.Routes.nettrom.chapter(chapter.id)}
+                    title={Utils.Mangadex.getChapterTitle(chapter)}
+                    className={twMerge(
+                      "text-xs",
+                      isRead
+                        ? "flex-grow truncate whitespace-nowrap text-web-titleDisabled transition hover:text-web-titleLighter"
+                        : "flex-grow truncate whitespace-nowrap text-web-title transition hover:text-web-titleLighter",
+                    )}
+                  >
+                    {Utils.Mangadex.getChapterTitle(chapter)}
+                  </TextLink>
+                  <span className="whitespace-nowrap text-muted-foreground">
+                    {isRead
+                      ? "ĐÃ ĐỌC"
+                      : Utils.Date.formatNowDistance(
+                          new Date(chapter.attributes.readableAt),
+                        )}
+                  </span>
+                </li>
+              );
+            })}
           </ul>
         </figcaption>
       </figure>
