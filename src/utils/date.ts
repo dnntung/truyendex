@@ -1,4 +1,4 @@
-import { format, formatDistance as dateFnsFormatDistance } from "date-fns";
+import { format, formatDistanceStrict } from "date-fns";
 import vi from "date-fns/locale/vi";
 
 export class DateUtils {
@@ -11,7 +11,11 @@ export class DateUtils {
       locale?: Locale;
     },
   ): string {
-    return dateFnsFormatDistance(date, new Date(), { locale: vi, ...options });
+    return formatDistanceStrict(date, new Date(), {
+      locale: vi,
+      addSuffix: true,
+      ...options,
+    });
   }
 
   formatDateTime(date: Date | number, options?: { locale?: Locale }) {

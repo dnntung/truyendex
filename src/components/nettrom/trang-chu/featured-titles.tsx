@@ -13,6 +13,7 @@ import { FaClock, FaFire } from "react-icons/fa";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { DataLoader } from "@/components/DataLoader";
 import { Utils } from "@/utils";
+import { TextLink } from "../common/link";
 
 export default function FeaturedTitles() {
   const { mangaList: featuredTitles, isLoading, error } = useFeaturedTitles();
@@ -23,8 +24,8 @@ export default function FeaturedTitles() {
   }, [featuredTitles, addMangas]);
 
   return (
-    <div className="flex flex-col gap-5">
-      <h2 className="flex items-center gap-4 text-[20px] font-medium text-web-title">
+    <div className="flex flex-col gap-4">
+      <h2 className="flex items-center gap-2 text-xl font-medium text-web-title">
         <FaFire />
         Truyện đề cử
       </h2>
@@ -40,14 +41,18 @@ export default function FeaturedTitles() {
               },
               768: {
                 slidesPerView: 4,
-                spaceBetween: 20,
+                spaceBetween: 16,
               },
               1024: {
                 slidesPerView: 5,
-                spaceBetween: 20,
+                spaceBetween: 16,
+              },
+              1280: {
+                slidesPerView: 6,
+                spaceBetween: 16,
               },
             }}
-            spaceBetween={20}
+            spaceBetween={16}
             loop
             onSlideChange={() => console.log("slide change")}
             onSwiper={(swiper) => console.log(swiper)}
@@ -59,7 +64,6 @@ export default function FeaturedTitles() {
                   <div key={manga.id} className={`item bg-black bg-cover`}>
                     <Link
                       href={Constants.Routes.nettrom.manga(manga.id)}
-                      title={title}
                       className="transtion group relative block h-full w-full"
                     >
                       <AspectRatio
@@ -70,22 +74,21 @@ export default function FeaturedTitles() {
                           <div className="absolute bottom-0 left-0 z-[1] h-2/5 w-full bg-gradient-to-t from-neutral-900 from-[10%] to-transparent transition-all duration-500 group-hover:h-3/5"></div>
                           <img
                             src={Utils.Mangadex.getCoverArt(manga)}
-                            alt={title}
                             className="h-full w-full object-cover transition duration-500 group-hover:scale-[102%]"
                           />
                         </div>
                       </AspectRatio>
                       <div className="absolute bottom-0 left-0 z-[2] w-full px-3 py-2 transition-all">
-                        <h3 className="mb-1 line-clamp-2 text-[16px] font-semibold leading-tight text-white group-hover:line-clamp-4">
+                        <h3 className="line-clamp-2 font-semibold leading-tight text-white group-hover:line-clamp-4">
                           {title}
                         </h3>
-                        <Link
+                        <TextLink
                           href={Constants.Routes.nettrom.manga(manga.id)}
-                          className="text-web-title transition hover:text-web-titleLighter"
+                          className="text-sm text-web-title transition hover:text-web-titleLighter"
                         >
                           {manga.author?.attributes?.name || ""}
-                        </Link>
-                        <p className="time mb-0 mt-1 flex h-0 items-center gap-2 overflow-hidden text-[12px] text-muted-foreground group-hover:h-auto">
+                        </TextLink>
+                        <p className="time mb-0 mt-1 flex h-0 items-center gap-1 overflow-hidden text-xs text-muted-foreground group-hover:h-auto">
                           <FaClock />{" "}
                           <span>
                             {formatDistance(

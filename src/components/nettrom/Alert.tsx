@@ -20,23 +20,23 @@ export const Alert: FC<{
   return (
     <ShadCnAlert
       className={twMerge(
-        "flex flex-col gap-3 bg-neutral-700 text-muted-foreground sm:flex-row",
+        "flex flex-col gap-3 bg-primary text-white sm:flex-row",
         props.classNames?.alert,
       )}
     >
-      <div className="flex grow gap-3 sm:items-center">
+      <div className="flex grow gap-2 sm:items-center">
         <span className="shrink-0">
-          <FaExclamationCircle className="inline text-[20px]" />
+          <FaExclamationCircle className="mb-0.5 inline text-xl" />
         </span>
         <div className="flex h-full grow flex-col justify-center">
           <AlertTitle
-            className={twMerge("mb-0 text-[14px]", props.classNames?.title)}
+            className={twMerge("mb-0 text-sm", props.classNames?.title)}
           >
             {props.title}{" "}
           </AlertTitle>
           {props.description && (
             <AlertDescription
-              className={twMerge("text-[12px]", props.classNames?.description)}
+              className={twMerge("text-xs", props.classNames?.description)}
             >
               {props.description}
             </AlertDescription>

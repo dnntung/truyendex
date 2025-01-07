@@ -34,8 +34,8 @@ const MangaTile = (props: {
     return props.order < 3;
   }, [props.order]);
   return (
-    <li className="relative flex w-full gap-[8px] py-2" key={props.manga.id}>
-      <div className="absolute left-4 top-0 flex h-[64px] w-8 items-center justify-center text-right">
+    <li className="relative flex w-full gap-2 py-2" key={props.manga.id}>
+      <div className="absolute left-3 top-1.5 flex h-[64px] w-8 items-center justify-center text-right">
         <span
           className={twMerge(
             `fn-order text-[64px] font-black leading-none text-muted-foreground/30 pos${props.order + 1}`,
@@ -45,7 +45,7 @@ const MangaTile = (props: {
           {props.order + 1}
         </span>
       </div>
-      <div className="flex grow items-start gap-4 pl-12">
+      <div className="flex grow items-start gap-4 pl-10">
         <Link
           className="relative w-[64px] shrink-0 rounded shadow-[-5px_0_20px_rgba(0,0,0,0.5)]"
           title={props.title}
@@ -63,7 +63,7 @@ const MangaTile = (props: {
           <h3>
             <Link
               href={Constants.Routes.nettrom.manga(props.manga.id)}
-              className="line-clamp-2 font-semibold !text-white transition hover:no-underline"
+              className="line-clamp-2 text-sm font-semibold !text-white transition hover:no-underline"
             >
               {props.title}
             </Link>
@@ -74,7 +74,7 @@ const MangaTile = (props: {
             </span>
           </p> */}
           {!props.hideCounter && (
-            <span className="mt-1 flex shrink-0 items-center gap-2 text-muted-foreground">
+            <span className="mt-1 flex shrink-0 items-center gap-2 text-xs text-muted-foreground">
               {props.icon}
               {Utils.Number.formatViews(props.counter || 0)}
             </span>
@@ -162,30 +162,30 @@ export default function TopTitles({ groupId }: { groupId?: string }) {
       <div className="">
         <div className="">
           <div className="mb-4 flex items-center justify-between gap-3">
-            <h2 className="flex items-center gap-4 text-[20px] font-medium text-web-title">
+            <h2 className="flex items-center gap-2 text-xl font-medium text-web-title">
               <FaTrophy />
               Bảng xếp hạng tháng này
             </h2>
           </div>
           <Tabs defaultValue="top" className="w-full">
-            <TabsList className="mb-4 grid h-[48px] grid-cols-3 bg-white/10 p-2">
+            <TabsList className="mb-4 grid h-[54px] grid-cols-3 bg-white/10 p-1">
               <TabsTrigger
                 value="top"
-                className="flex h-full items-center gap-3 rounded text-[12px]"
+                className="flex h-full flex-col items-center gap-0.5 rounded text-xs"
               >
                 <FaStar />
                 Top
               </TabsTrigger>
               <TabsTrigger
                 value="favorite"
-                className="flex h-full items-center gap-3 rounded text-[12px]"
+                className="flex h-full flex-col items-center gap-0.5 rounded text-xs"
               >
                 <FaHeart />
                 Yêu thích
               </TabsTrigger>
               <TabsTrigger
                 value="new"
-                className="flex h-full items-center gap-3 rounded text-[12px]"
+                className="flex h-full flex-col items-center gap-0.5 rounded text-xs"
               >
                 <FaClock />
                 Mới
@@ -197,7 +197,7 @@ export default function TopTitles({ groupId }: { groupId?: string }) {
                 error={topMangaListError}
                 loadingText={loadingText}
               >
-                <ul className="flex flex-col gap-4">
+                <ul className="flex flex-col gap-2">
                   {topMangaList.map((manga, index) => {
                     const title = Utils.Mangadex.getMangaTitle(manga);
                     return (
@@ -220,7 +220,7 @@ export default function TopTitles({ groupId }: { groupId?: string }) {
                 error={favoriteMangaListError}
                 loadingText={loadingText}
               >
-                <ul className="flex flex-col gap-4">
+                <ul className="flex flex-col gap-2">
                   {favoriteMangaList.map((manga, index) => {
                     const title = Utils.Mangadex.getMangaTitle(manga);
                     return (
@@ -248,7 +248,7 @@ export default function TopTitles({ groupId }: { groupId?: string }) {
                 error={newMangaListError}
                 loadingText={loadingText}
               >
-                <ul className="flex flex-col gap-4">
+                <ul className="flex flex-col gap-2">
                   {newMangaList.map((manga, index) => {
                     const title = Utils.Mangadex.getMangaTitle(manga);
                     return (

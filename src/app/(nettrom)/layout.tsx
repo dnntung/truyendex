@@ -1,15 +1,16 @@
 import Link from "next/link";
 import { Inter } from "next/font/google";
-import MainNav from "@/components/nettrom/layout/main-nav";
-import Header from "@/components/nettrom/layout/header";
 import { Constants } from "@/constants";
 import "@/styles/nettrom/index.scss";
 import { twMerge } from "tailwind-merge";
 import { LayoutWrapper } from "@/components/LayoutWrapper";
 import { Metadata } from "next";
 import { Suspense } from "react";
-import { Alert } from "@/components/nettrom/Alert";
 import NextTopLoader from "nextjs-toploader";
+import { TextLink } from "@/components/nettrom/common/link";
+import SlidingHeader from "@/components/nettrom/layout/header-2";
+import { Alert } from "@/components/nettrom/Alert";
+import MainNav from "@/components/nettrom/layout/main-nav-2";
 
 export const metadata: Metadata = {
   title: `${Constants.APP_NAME} - Truyện tranh chất lượng cao không quảng cáo`,
@@ -53,55 +54,47 @@ export default function NettromLayout({
   <div class="spinner text-web-title" role="spinner"><div class="spinner-icon"></div></div>`}
       />
       <Suspense>
-        <Header />
+        {/* <Header /> */}
+        <SlidingHeader />
       </Suspense>
-      <nav className="main-nav hidden-xs" id="mainNav">
+      <nav
+        className="main-nav hidden-xs bg-muted pt-[40px] text-foreground"
+        id="mainNav"
+      >
         <div className="inner">
           <div className="container">
             <div className="py-4">
               <Alert
                 title="TruyenDex chỉ xây dựng giao diện tiếng Việt, toàn bộ dữ liệu
                 thuộc về MangaDex."
+                classNames={{
+                  alert: "rounded-t-none mb-1 shadow-xl",
+                }}
               />
               <MainNav />
             </div>
           </div>
         </div>
       </nav>
-      <main className={twMerge("main text-foreground", inter.className)}>
+      <main className={twMerge("bg-muted text-foreground", inter.className)}>
         <div className="container">{children}</div>
       </main>
-      <footer className="footer border-t bg-[#000]">
-        <div className="container">
-          <div className="row">
+      <footer className="border-t bg-[#000]">
+        <div className="container pb-10 pt-10">
+          <div className="grid gap-4 sm:grid-cols-[1fr_3fr]">
             <div
-              className="col-sm-4 copyright"
+              className="copyright text-muted-foreground"
               itemType="http://schema.org/Organization"
             >
-              <Link itemProp="url" href="/">
+              <Link itemProp="url" href="/" className="mb-4 block">
                 <img
                   itemProp="logo"
                   src={"/nettruyen/images/logo.png"}
-                  style={{ aspectRatio: 5 }}
+                  className="h-10"
                   alt={`${Constants.APP_NAME} - Truyện tranh Online`}
                 />
               </Link>
-              <div className="mrt10 row">
-                <div className="col-xs-6">
-                  {/* <a
-                    href="https://mangadex.org/about"
-                    rel="nofollow noopener"
-                    target="_blank"
-                  >
-                    MangaDex
-                  </a> */}
-                </div>
-                {/* <div className="col-xs-6">
-                      <a href="/chinh-sach-bao-mat">Chính sách bảo mật</a>
-                    </div> */}
-              </div>
-              <p></p>
-              <p>
+              <p className="text-sm">
                 Copyright © {copyrightYear}{" "}
                 <Link
                   href="/"
@@ -111,105 +104,105 @@ export default function NettromLayout({
                 </Link>
               </p>
             </div>
-            <div className="col-sm-8">
-              <div className="link-footer">
-                <h4>Từ khóa</h4>
-                <ul>
+            <div>
+              <div className="">
+                <h4 className="mb-4 text-muted-foreground">Từ khóa</h4>
+                <ul className="flex flex-wrap gap-2 text-sm">
                   <li>
-                    <Link target="_self" href="/">
+                    <TextLink target="_self" href="/">
                       Truyện tranh
-                    </Link>
+                    </TextLink>
                   </li>
                   <li>
-                    <Link target="_self" href="/">
+                    <TextLink target="_self" href="/">
                       Truyen tranh online
-                    </Link>
+                    </TextLink>
                   </li>
                   <li>
-                    <Link target="_self" href="/">
+                    <TextLink target="_self" href="/">
                       Đọc truyện tranh
-                    </Link>
+                    </TextLink>
                   </li>
                   <li>
-                    <Link
+                    <TextLink
                       target="_self"
                       href={`${Constants.Routes.nettrom.search}?order[followedCount]=desc#results`}
                     >
                       Truyện tranh hot
-                    </Link>
+                    </TextLink>
                   </li>
                   <li>
-                    <Link target="_self" href="/">
+                    <TextLink target="_self" href="/">
                       Truyện tranh hay
-                    </Link>
+                    </TextLink>
                   </li>
                   <li>
-                    <Link
+                    <TextLink
                       target="_self"
                       href={`${Constants.Routes.nettrom.search}?publicationDemographic=josei&publicationDemographic=shoujo#results`}
                     >
                       Truyện ngôn tình
-                    </Link>
+                    </TextLink>
                   </li>
                   <li>
-                    <Link target="_self" href="/">
-                      Manhwa
-                    </Link>
+                    <TextLink target="_self" href="/">
+                      Mangadex
+                    </TextLink>
                   </li>
                   <li>
-                    <Link target="_self" href="/">
+                    <TextLink target="_self" href="/">
                       Manga
-                    </Link>
+                    </TextLink>
                   </li>
                   <li>
-                    <Link target="_self" href="/">
+                    <TextLink target="_self" href="/">
                       Manhua
-                    </Link>
+                    </TextLink>
                   </li>
                   <li>
-                    <Link target="_self" href="/">
+                    <TextLink target="_self" href="/">
                       truyenqq
-                    </Link>
+                    </TextLink>
                   </li>
                   <li>
-                    <Link target="_self" href="/">
+                    <TextLink target="_self" href="/">
                       mi2manga
-                    </Link>
+                    </TextLink>
                   </li>
                   <li>
-                    <Link target="_self" href="/">
+                    <TextLink target="_self" href="/">
                       doctruyen3q
-                    </Link>
+                    </TextLink>
                   </li>
                   <li>
-                    <Link target="_self" href="/">
+                    <TextLink target="_self" href="/">
                       toptruyen
-                    </Link>
+                    </TextLink>
                   </li>
                   <li>
-                    <Link target="_self" href="/">
+                    <TextLink target="_self" href="/">
                       cmanga
-                    </Link>
+                    </TextLink>
                   </li>
                   <li>
-                    <Link target="_self" href="/">
+                    <TextLink target="_self" href="/">
                       vlogtruyen
-                    </Link>
+                    </TextLink>
                   </li>
                   <li>
-                    <Link target="_self" href="/">
+                    <TextLink target="_self" href="/">
                       blogtruyen
-                    </Link>
+                    </TextLink>
                   </li>
                   <li>
-                    <Link target="_self" href="/">
+                    <TextLink target="_self" href="/">
                       truyentranhaudio
-                    </Link>
+                    </TextLink>
                   </li>
                   <li>
-                    <Link target="_self" href="/">
+                    <TextLink target="_self" href="/">
                       vcomi
-                    </Link>
+                    </TextLink>
                   </li>
                 </ul>
               </div>

@@ -1,29 +1,26 @@
 "use client";
 
-import Link from "next/link";
-
 import useReadingHistory from "@/hooks/useReadingHistory";
 
 import { FaHistory } from "react-icons/fa";
 import { AspectRatio } from "@/components/shadcn/aspect-ratio";
 import { Constants } from "@/constants";
+import { TextLink } from "../common/link";
+import Link from "next/link";
 
 export default function ReadingHistory() {
-  const { history, removeHistory } = useReadingHistory();
+  const { history } = useReadingHistory();
   return (
     <div>
       <div>
         <div className="mb-4 flex items-center justify-between gap-3">
-          <h2 className="flex items-center gap-4 text-[20px] font-medium text-web-title">
+          <h2 className="flex items-center gap-2 text-xl font-medium text-web-title">
             <FaHistory />
             Lịch sử đọc truyện
           </h2>
-          <Link
-            className="text-web-title transition hover:text-web-titleLighter"
-            href={Constants.Routes.nettrom.history}
-          >
+          <TextLink href={Constants.Routes.nettrom.history}>
             Xem tất cả
-          </Link>
+          </TextLink>
         </div>
         <ul className="grid grid-cols-4 gap-4">
           {Object.entries(history)
@@ -33,7 +30,6 @@ export default function ReadingHistory() {
                 <div className="flex gap-3">
                   <Link
                     className="block w-full shrink-0"
-                    title={manga.mangaTitle}
                     href={Constants.Routes.nettrom.manga(mangaId)}
                   >
                     <AspectRatio
